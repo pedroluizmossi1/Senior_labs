@@ -43,10 +43,13 @@ sentiment = False      #Esta opção cria/refaz o arquivo sms_senior_treated.jso
 [API]
 host = 127.0.0.1      #Endereço de escuta/acesso da aplicação.
 port = 8000 #Porta de acesso da aplicação.
-   </pre>
-    <h1>Data:</h1>
-    <p> Dentro da pasta "data" temos os arquivos em formato JSON dos desafios propostos. Estes arquivos tem apenas o propósito de serem consultados rapidamente a fim de checar alguma infomação. </p>
+</pre>
+<h1>Pasta Data:</h1>
+<p> Dentro da pasta "data" temos os arquivos em formato JSON dos desafios propostos. Estes arquivos tem apenas o propósito de serem consultados rapidamente a fim de checar alguma infomação. </p>
     
+ <h1>Duvidas e Contato:</h1>
+    <p>Qualquer dúvida pode ser enviada aqui diretamente na pagina do repositório.</p>
+    <h2>Ass: Pedro Mossi</h2>
 </body>
 </html>
 
