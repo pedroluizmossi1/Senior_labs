@@ -24,7 +24,7 @@ INFO:     Started server process [28412]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 </pre>
-<h3>Pronto agora sua aplicação esta rodando no endereço local "127.0.0.1:8000", basta ir no navegador e colar o endereço.</h3>
+<h3>Pronto agora sua aplicação esta rodando no endereço local "127.0.0.1:8000", basta ir no navegador e colar o endereço para acessar a aplicação.</h3>
     <h1>Configurações:</h1>
     <p> O arquivo de configurações se encontra na raiz do diretório com o nome de config.ini.</p>
     
