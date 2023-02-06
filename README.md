@@ -4,7 +4,7 @@
   <a>Python 3.7 ou superior: <a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a></a> <br>
   <a>pip: <a href="https://pip.pypa.io/en/stable/installation/">https://pip.pypa.io/en/stable/installation/</a></a><br>
   <a>PyTorch: <a href="https://pytorch.org/get-started/locally/">https://pytorch.org/get-started/locally/</a></a><br><br>
-  <a>Obs: É sempre possivel que falte alguma biblioteca quando for rodar o comando do pip dentro do arquivo start.bat/sh fique atento a saida do prompt, geralmente tera o nome do modulo no final, indicando a falta do mesmo e para instalar basta utilizar o comando 'pip install <module>'.<br><br>
+  <a>Obs: É sempre possivel que falte alguma biblioteca quando for rodar o comando do pip dentro do arquivo start.bat/sh fique atento a saida do prompt, geralmente terá o nome do modulo no final, indicando a falta do mesmo e para instalar basta utilizar o comando 'pip install <module>'.<br><br>
     
 <h1>Primeiros Passos:</h1>
 <p>Após concluir a instalação dos requisitos, basta executar a aplicação no arquivo:</p>
@@ -44,6 +44,9 @@ sentiment = False      #Esta opção cria/refaz o arquivo sms_senior_treated.jso
 host = 127.0.0.1      #Endereço de escuta/acesso da aplicação.
 port = 8000 #Porta de acesso da aplicação.
    </pre>
+    <h1>Data:</h1>
+    <p> Dentro da pasta "data" temos os arquivos em formato JSON dos desafios propostos. Estes arquivos tem apenas o propósito de serem consultados rapidamente a fim de checar alguma infomação. </p>
+    
 </body>
 </html>
 
