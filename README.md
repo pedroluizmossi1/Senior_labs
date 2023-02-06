@@ -24,8 +24,26 @@ INFO:     Started server process [28412]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 </pre>
-<p>Pronto agora sua aplicação esta rodando no endereço local "127.0.0.1:8000".</p>
+<h3>Pronto agora sua aplicação esta rodando no endereço local "127.0.0.1:8000", basta ir no navegador e colar o endereço.</h3>
     <h1>Configurações:</h1>
+    <p> O arquivo de configurações se encontra na raiz do diretório com o nome de config.ini.</p>
+    
+   <pre>
+[DEFAULT]
+file_path = dataset/sms_senior.csv      #Caminho do arquivo csv com os dados iniciais do desafio.
+file_path_json = dataset/sms_senior.json      #Caminho do arquivo JSON com os dados do arquivo csv.
+file_path_json_treated = dataset/sms_senior_treated.json      #Caminho do arquivo JSON tratado para a retirada de palavras sem valor.
+file_path_json_sentiment = dataset/sms_senior_sentiment.json      #Caminho do arquivo JSON tratado e com sentimentos adicionados adicionados.
+reset_json = False or True     #Esta opção cria/refaz o arquivo sms_senior.json. !importante para o funcinamento da aplicação
+reset_json_treated = False or True      #Esta opção cria/refaz o arquivo sms_senior_treated.json. !importante para o funcinamento da aplicação
+
+[MODELS]
+sentiment = False      #Esta opção cria/refaz o arquivo sms_senior_treated.json. !importante para o funcinamento da aplicação e pode levar varios minutos para criar o arquivo dependendo do seu hardware.
+
+[API]
+host = 127.0.0.1      #Endereço de escuta/acesso da aplicação.
+port = 8000 #Porta de acesso da aplicação.
+   </pre>
 </body>
 </html>
 
