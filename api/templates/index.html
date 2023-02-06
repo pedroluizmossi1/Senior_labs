@@ -1,0 +1,308 @@
+{% extends "base.html" %}
+<head>
+    {% block title %}Index{% endblock %}
+</head>
+<body>
+    {% block content %}
+    <div>
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" onclick="show_bar_chart()" id="bar_chart_nav_link" href="#">Word Count</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" onclick="show_message_spam()" id="message_spam_nav_link" href="#">Messages and Spam</a>
+        </li>
+      <div class="container-fluid text-center" id="bar_chart_div">
+        <div class="row align-items-start">
+          <div class="col-10">
+            <p class="important">
+              <div><canvas id="top_20_word_count"></canvas></div>
+           </p>
+          </div>
+          <div class="col-2 overflow-auto" style="height: 80vh">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Word</th>
+                  <th scope="col">Count</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for word, count in word_count.items() %}
+                <tr>
+                  <td scope="row">{{ loop.index }}</td>
+                  <td>{{ word }}</td>
+                  <td>{{ count }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid text-center" id="message_spam_div" style="display: none;">
+        <div class="row align-items-start">
+          <div class="col-6">
+            <p class="important">
+              <div><canvas id="message_spam_chart"></canvas></div>
+           </p>
+          </div>
+          <div class="col-6">
+            <p class="important">
+              <div><canvas id="word_count_statistics_by_mouth"></canvas></div>
+           </p>
+          </div>
+          <div class="col">
+            <p class="important">
+              <div><canvas id="messages_count_by_day" style="height: 5vh;"></canvas></div>
+           </p>
+          </div>
+        </div>
+      </div>
+    </ul>
+    </div>
+
+
+    <script module>
+
+      window.onload = function() {
+        tab_name = sessionStorage.getItem("tab_name");
+        if (tab_name == "show_bar_chart") {
+          show_bar_chart();
+        } else if (tab_name == "show_message_spam") {
+          show_message_spam();
+        } else {
+          show_bar_chart();
+        }
+      }
+
+      Chart.defaults.color = "white";
+      Chart.defaults.font.size = 16;
+
+      word_count = {{ word_count|tojson }};
+      word_count_by_mount = {{ word_count_by_mounth|tojson }};
+      message_count_by_mounth = {{ message_count_by_mounth|tojson }};
+      spam_count_by_mounth = {{ spam_count_by_mounth|tojson }};
+      word_count_statistics_by_mouth = {{ word_count_statistics_by_mouth|tojson }};
+      messages_count_by_day = {{ messages_count_by_day|tojson }};
+
+      console.log(messages_count_by_day);
+
+
+      function save_session_tab(tab_name_function) {
+        sessionStorage.setItem("tab_name", tab_name_function);
+      }
+
+      function hidden_bar_chart() {
+        document.getElementById("bar_chart_div").style.display = "none";
+        document.getElementById("bar_chart_nav_link").classList.remove("active");
+      }
+
+      function show_bar_chart() {
+        document.getElementById("bar_chart_div").style.display = "block";
+        document.getElementById("bar_chart_nav_link").classList.add("active");
+        hidden_message_spam();
+        save_session_tab("show_bar_chart")
+      }
+
+      function hidden_message_spam() {
+        document.getElementById("message_spam_div").style.display = "none";
+        document.getElementById("message_spam_nav_link").classList.remove("active");
+      }
+
+      function show_message_spam() {
+        document.getElementById("message_spam_div").style.display = "block";
+        document.getElementById("message_spam_nav_link").classList.add("active");
+        hidden_bar_chart();
+        save_session_tab("show_message_spam")
+      }
+
+
+      word_count = Object.fromEntries(
+        Object.entries(word_count).sort(([,a],[,b]) => b-a).slice(0, 20)
+      );
+      word_count_labels = Object.keys(word_count);
+      const word_count_top_20_data = {
+        labels: word_count_labels,
+        datasets: [{
+          label: 'Top 20 word count',
+          data: word_count,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.7)',
+            'rgba(255, 159, 64, 0.7)',
+            'rgba(255, 205, 86, 0.7)',
+            'rgba(75, 192, 192, 0.7)',
+            'rgba(54, 162, 235, 0.7)',
+            'rgba(153, 102, 255, 0.7)',
+            'rgba(201, 203, 207, 0.7)'
+          ],
+          borderColor: [
+            'rgb(255, 99, 132, 1)',
+            'rgb(255, 159, 64, 1)',
+            'rgb(255, 205, 86, 1)',
+            'rgb(75, 192, 192, 1)',
+            'rgb(54, 162, 235, 1)',
+            'rgb(153, 102, 255, 1)',
+            'rgb(201, 203, 207, 1)'
+          ],
+          borderWidth: 1
+        }]
+      };
+
+      const word_count_top_20_config = {
+        type: 'bar',
+        data: word_count_top_20_data,
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        },
+      };
+
+
+      word_count_labels = Object.keys(word_count_by_mount);
+      const message_and_spam_data = {
+        labels: word_count_labels,
+        datasets: [{
+          type: 'line',
+          label: 'Spams',
+          data: spam_count_by_mounth,
+          fill: false,
+          borderColor: 'rgb(255, 99, 132, 1)'
+        },
+        {
+          type: 'bar',
+          label: 'Messages',
+          data: message_count_by_mounth,
+          borderColor: 'rgb(255, 99, 132, 1)',
+          backgroundColor: 'rgba(50, 198, 255, 0.5)'
+        }]
+      };
+
+      const message_and_spam_config = {
+        type: 'scatter',
+        data: message_and_spam_data,
+        options: {
+          elements: {
+            line: {
+              borderWidth: 6
+            },
+            point : {
+              radius: 10
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      };
+
+      max_count = JSON.parse(Object.values(word_count_statistics_by_mouth)[0].replace(/'/g, '"'))
+      min_count = JSON.parse(Object.values(word_count_statistics_by_mouth)[1].replace(/'/g, '"'))
+      mean_count = JSON.parse(Object.values(word_count_statistics_by_mouth)[2].replace(/'/g, '"'))
+      median_count = JSON.parse(Object.values(word_count_statistics_by_mouth)[3].replace(/'/g, '"'))
+      std_count = JSON.parse(Object.values(word_count_statistics_by_mouth)[4].replace(/'/g, '"'))
+      varia_count = JSON.parse(Object.values(word_count_statistics_by_mouth)[5].replace(/'/g, '"'))
+      console.log(Object.keys(max_count))
+      function loop_dataset()
+      {
+        var dataset = [];
+        for (var i = 0; i < Object.getOwnPropertyNames(max_count).length; i++) {
+          dataset.push({
+            label: Object.keys(max_count)[i],
+            data: [Object.values(max_count)[i], Object.values(min_count)[i], Object.values(mean_count)[i], Object.values(median_count)[i], Object.values(std_count)[i], Object.values(varia_count)[i]],
+
+            borderWidth: 1
+          })
+        }
+        return dataset;
+      }
+
+      const word_count_statistics_by_mouth_config = {
+        type: 'bar',
+        data: {
+          labels: ['Max', 'Min', 'Mean', 'Median', 'Std', 'Varia'],
+          datasets: loop_dataset()
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        },
+      };
+      
+      messages_count_by_day = Object.fromEntries(
+        Object.entries(messages_count_by_day).sort(([a,],[b,]) => b-a)
+      );
+      messages_count_by_day_labels = Object.keys(messages_count_by_day);
+      const messages_count_by_day_data = {
+        labels: messages_count_by_day_labels,
+        datasets: [{
+          label: 'Messages count by day',
+          data: messages_count_by_day,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.7)',
+            'rgba(255, 159, 64, 0.7)',
+            'rgba(255, 205, 86, 0.7)',
+            'rgba(75, 192, 192, 0.7)',
+            'rgba(54, 162, 235, 0.7)',
+            'rgba(153, 102, 255, 0.7)',
+            'rgba(201, 203, 207, 0.7)'
+          ],
+          borderColor: [
+            'rgb(255, 99, 132, 1)',
+            'rgb(255, 159, 64, 1)',
+            'rgb(255, 205, 86, 1)',
+            'rgb(75, 192, 192, 1)',
+            'rgb(54, 162, 235, 1)',
+            'rgb(153, 102, 255, 1)',
+            'rgb(201, 203, 207, 1)'
+          ],
+          borderWidth: 1
+        }]
+      };
+
+      const messages_count_by_day_config = {
+        type: 'line',
+        data: messages_count_by_day_data,
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        },
+      };
+
+      new Chart(
+        document.getElementById('messages_count_by_day'),
+        messages_count_by_day_config
+      );
+
+      new Chart(
+        document.getElementById('word_count_statistics_by_mouth'),
+        word_count_statistics_by_mouth_config
+      );
+
+      new Chart(
+        document.getElementById('top_20_word_count'),
+        word_count_top_20_config
+      );
+
+      new Chart(
+        document.getElementById('message_spam_chart'),
+        message_and_spam_config
+      );
+
+    </script>
+
+{% endblock %}
+</body>
+</html>
