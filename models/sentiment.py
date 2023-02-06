@@ -14,10 +14,10 @@ def preprocess(text):
         new_text.append(t)
     return " ".join(new_text)
 
-#MODEL = f"cardiffnlp/twitter-roberta-base-sentiment-latest"
-#tokenizer = AutoTokenizer.from_pretrained(MODEL)
-#config = AutoConfig.from_pretrained(MODEL)
-#model = AutoModelForSequenceClassification.from_pretrained(MODEL)
+MODEL = f"cardiffnlp/twitter-roberta-base-sentiment-latest"
+tokenizer = AutoTokenizer.from_pretrained(MODEL)
+config = AutoConfig.from_pretrained(MODEL)
+model = AutoModelForSequenceClassification.from_pretrained(MODEL)
 
 def get_sentiment_score(text):
     text = preprocess(text)

@@ -2,11 +2,8 @@ fastapi
 gradio
 matplotlib
 numpy
-pandas
 requests
 scikit_learn
 scipy
 transformers
-uvicorn
 wordcloud
-pytorch

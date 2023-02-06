@@ -154,6 +154,12 @@
         type: 'bar',
         data: word_count_top_20_data,
         options: {
+          plugins: {
+            title: {
+              display: true,
+              text: 'Top 20 word count'
+            }
+          },
           scales: {
             y: {
               beginAtZero: true
@@ -186,6 +192,12 @@
         type: 'scatter',
         data: message_and_spam_data,
         options: {
+          plugins: {
+            title: {
+              display: true,
+              text: 'Messages and spams count by mounth'
+            }
+          },
           elements: {
             line: {
               borderWidth: 6
@@ -230,6 +242,12 @@
           datasets: loop_dataset()
         },
         options: {
+          plugins: {
+            title: {
+              display: true,
+              text: 'Word count statistics by mouth'
+            }
+          },
           scales: {
             y: {
               beginAtZero: true
@@ -273,6 +291,12 @@
         type: 'line',
         data: messages_count_by_day_data,
         options: {
+          plugins: {
+            title: {
+              display: true,
+              text: 'Messages count by day'
+            }
+          },
           scales: {
             y: {
               beginAtZero: true
