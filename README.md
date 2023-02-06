@@ -1,5 +1,8 @@
 <html>
 <body>
+ <h1>Projeto:</h1>
+  <a> Seja bem vindo ao projeto Desafio - Data Science SL, esse projeto tem como intuito cumprir os requisitos e desafios propostos no material <a href="https://github.com/SeniorSA/seniorlabs-challenge/blob/main/data-science.md"> https://github.com/SeniorSA/seniorlabs-challenge/blob/main/data-science.md</a> oferecido pelo pessoal do Senior Labs. O projeto trata se de uma aplicação em python, tanto backend quanto frontend e que darei mais detalhes abaixo.
+    ![](https://giphy.com/gifs/JmLh726ZeieEM4HCyv)
 <h1>Requisitos:</h1>
   <a>Python 3.7 ou superior: <a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a></a> <br>
   <a>pip: <a href="https://pip.pypa.io/en/stable/installation/">https://pip.pypa.io/en/stable/installation/</a></a><br>
