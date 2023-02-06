@@ -1,5 +1,4 @@
 import json
-import os
 import pandas as pd
 
 from core.import_csv import CsvFile
