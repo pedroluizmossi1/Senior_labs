@@ -33,7 +33,7 @@ INFO:     Application startup complete.
 file_path = dataset/sms_senior.csv      #Caminho do arquivo csv com os dados iniciais do desafio.
 file_path_json = dataset/sms_senior.json      #Caminho do arquivo JSON com os dados do arquivo csv.
 file_path_json_treated = dataset/sms_senior_treated.json      #Caminho do arquivo JSON tratado para a retirada de palavras sem valor.
-file_path_json_sentiment = dataset/sms_senior_sentiment.json      #Caminho do arquivo JSON tratado e com sentimentos adicionados adicionados.
+file_path_json_sentiment = dataset/sms_senior_sentiment.json      #Caminho do arquivo JSON tratado e com sentimentos adicionados.
 reset_json = False or True     #Esta opção cria/refaz o arquivo sms_senior.json. !importante para o funcinamento da aplicação
 reset_json_treated = False or True      #Esta opção cria/refaz o arquivo sms_senior_treated.json. !importante para o funcinamento da aplicação
 
