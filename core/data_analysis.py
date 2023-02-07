@@ -20,11 +20,9 @@ class DataAnalysis():
             json_data[i] = {k: v for k, v in json_data[i].items() if v != 0}
             keys = list(json_data[i].keys())
             for j in range(len(keys)):
-                #exclude the Full_Text key, Word_Count, Date, IsSpam
                 if keys[j] == 'Full_Text' or keys[j] == 'Word_Count' or keys[j] == 'Date' or keys[j] == 'IsSpam' or keys[j] == 'Common_Word_Count' or keys[j] == 'Sentiment':
                     continue
                 else:
-                    #if the key is not in the dictionary, add it with counted value
                     if keys[j] not in key_dict:
                         key_dict[keys[j]] = 1
                     else:
@@ -140,6 +138,15 @@ class DataAnalysis():
         json_data = JsonFunctions.read_json_file('export_json',json_file_path)
         return json_data
 
+    def get_classification_and_score(self, json_file_path):
+        json_data = JsonFunctions.read_json_file('export_json',json_file_path)
+        classification = []
+        score = []
+        for i in range(len(json_data)):
+            classification.append(json_data[i]['Classification'])
+            score.append(json_data[i]['Score'])
+        return classification, score
+
 class DataPlot():
     def __init__(self):
         pass
@@ -148,26 +155,22 @@ class DataPlot():
         wordcloud = WordCloud().generate_from_frequencies(values)
         plt.imshow(wordcloud, interpolation='bilinear')
         plt.axis("off")
-        plt.show()
 
     def plot_bar_chart(self, values):
         #plot the bar chart
         plt.figure(figsize=(10, 5))
         plt.bar(range(len(values)), list(values.values()), align='center')
         plt.xticks(range(len(values)), list(values.keys()))
-        plt.show()
 
     def plot_line_chart(self, values):
         #plot the line chart
         plt.figure(figsize=(10, 5))
         plt.plot(list(values.keys()), list(values.values()))
-        plt.show()
 
     def plot_pie_chart(self, values):
         #plot the pie chart
         plt.figure(figsize=(10, 5))
         plt.pie(list(values.values()), labels=list(values.keys()), autopct='%1.1f%%')
-        plt.show()
 
     def stacked_bar_chart(self, values1, values2):
         #plot the stacked bar chart
@@ -176,4 +179,3 @@ class DataPlot():
         plt.bar(range(len(values2)), list(values2.values()), align='center', label='Spam')
         plt.xticks(range(len(values1)), list(values1.keys()))
         plt.legend()
-        plt.show()

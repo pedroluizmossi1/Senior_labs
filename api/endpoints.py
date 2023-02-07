@@ -12,7 +12,7 @@ from core.config import Config
 from core.import_csv import CsvFile
 from core.json_function import JsonFunctions
 from models.sentiment import get_sentiment_score
-from models.classification import get_classification
+from models.classification import get_classification, get_score
 from core.data_analysis import DataAnalysis, DataPlot
 
 api = FastAPI()
@@ -90,6 +90,8 @@ def import_csv_to_json_treated_sentiment_default(sentiment: bool):
         if sentiment == True:
             for i in range(len(json_file)):
                 json_file[i]['Sentiment'] = get_sentiment_score(json_file[i]['Full_Text'])
+                json_file[i]['Classification'] = get_classification(json_file[i]['Full_Text'])
+                json_file[i]['Score'] = get_score(json_file[i]['Full_Text'])
                 length = len(json_file)
                 progress_bar = int((i/length)*100)
                 print(progress_bar)

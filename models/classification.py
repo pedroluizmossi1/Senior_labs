@@ -30,4 +30,13 @@ def get_classification(message):
     prediction = clf.predict(new_features)
     score = clf.predict_proba(new_features)
     print("Classification:", prediction[0])
-    return prediction[0]
+    series = pd.Series(prediction[0]).to_json(orient='records')
+    #remove [] and \\ and " from string
+    series = series.replace('[','').replace(']','').replace('\\','').replace('"','')
+    return series
+
+def get_score(message):
+    new_features = vectorizer.transform([message])
+    score = clf.predict_proba(new_features)
+    print("Score:", score[0])
+    return pd.Series(score[0]).to_json(orient='records')
